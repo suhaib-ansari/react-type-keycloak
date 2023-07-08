@@ -15,11 +15,12 @@ const UserList = ({ onDelete }: DeleteProps) => {
 
   return (
     <>
-      <div className="container mt-3 w-75">
-        <div className="constainer text-center mb-3 mt-3">
+      <div className="container mt-3 w-75 table-responsive">
+        {/* <div className="constainer text-center mb-4 mt-5 ">
           <h3>User Lists</h3>
-        </div>
-        <table className="table table-hover table-sm h-25">
+        </div> */}
+        <table className="table table-bordered table-hover table-sm h-25 caption-top">
+          <caption>List of users</caption>
           <thead>
             <tr>
               <th className="text-center">ID</th>
@@ -42,9 +43,9 @@ const UserList = ({ onDelete }: DeleteProps) => {
                     <td>
                       <RendorOnRole roles={["ADMIN"]}>
                         <div className="text-center">
-                        <button className="btn btn-sm btn-outline-danger" onClick={(e) => handleDelete(parseInt(`${u.id}`))}>
-                          Delete
-                        </button>
+                          <button className="btn btn-sm btn-outline-danger" onClick={(e) => handleDelete(parseInt(`${u.id}`))}>
+                            Delete
+                          </button>
                         </div>
                       </RendorOnRole>
                     </td>
