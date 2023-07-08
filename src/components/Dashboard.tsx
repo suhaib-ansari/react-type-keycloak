@@ -1,20 +1,10 @@
 import { ChangeEvent, FormEvent, useState } from "react";
-import UserService from "../services/UserService";
-
-interface FormProps {
-  onSubmit: (data: FormData) => void;
-}
-
-interface FormData {
-  username: string;
-  userid: string;
-}
+import { FormProps } from "../@types/UserType";
 
 const Dashboard = ({ onSubmit }: FormProps) => {
   const [formData, setFormData] = useState({ username: "", userid: "" });
 
   const handleInputs = (event: ChangeEvent<HTMLInputElement>) => {
-    // console.log(event);
     const { name, value } = event.target;
     console.log("name :", name, "value ", value);
     setFormData({ ...formData, [name]: value });
@@ -59,7 +49,6 @@ const Dashboard = ({ onSubmit }: FormProps) => {
           </div>
         </form>
       </div>
-      
     </>
   );
 };

@@ -5,29 +5,29 @@ import Welcome from "./components/Welcome";
 import RendorOnRole from "./components/RendorOnRole";
 import UserList from "./components/UserList";
 import UserApi from "./services/UserApi";
+import MyContext from "./services/Context";
+import { FormData, User } from "./@types/UserType";
 
-interface FormData {
-  username: string;
-  userid: string;
-}
-interface FormDataTable {
-  users: FormData[];
-}
 
 const App = () => {
   const submit = (formData: FormData) => {
     console.log("form data to be submitting------>", formData);
   };
 
-  const [user, setUser] = useState<FormData[]>();
+  const [userdata, setUserdata] = useState<User[] | null>(null);
+  
   useEffect(() => {
-    const fetchUsers =  () => {
-    const data = UserApi.getAllUser();
-      console.log("data -----> ", data);
-      // setUser(data);
+    const fetchUsers = () => {
+      UserApi.getAllUser().then((red) => {
+        console.log("red data --> ", red.data);
+        const resp: User[] = red.data;
+        setUserdata(resp);
+      });
     };
     fetchUsers();
   }, []);
+
+  console.log("data -----> ", userdata);
 
   return (
     <>
@@ -36,7 +36,9 @@ const App = () => {
         <Dashboard onSubmit={submit} />
       </RenderOnAuthenticated>
       <RendorOnRole roles={["ADMIN"]}>
-        <UserList users={[]} />
+        <MyContext.Provider value={userdata}>
+          <UserList />
+        </MyContext.Provider>
       </RendorOnRole>
     </>
   );

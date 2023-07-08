@@ -1,15 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
+import MyContext from "../services/Context";
+import { User, UserApiResponse } from "../services/Types";
+import RendorOnRole from "./RendorOnRole";
 
-interface FormData {
-  username: string;
-  userid: string;
-}
+const UserList = () => {
+  const data = useContext(MyContext);
 
-interface FormDataTable {
-  users: FormData[];
-}
+  console.log("userlist data --->", data);
 
-const UserList = ({ users }: FormDataTable) => {
   return (
     <>
       <div className="container mt-3 justify-content-center">
@@ -23,16 +21,19 @@ const UserList = ({ users }: FormDataTable) => {
             </tr>
           </thead>
           <tbody>
-            {users.map((u: FormData, index: number) => {
+            {data?.map((u: User) => {
               return (
                 <>
-                  <tr key={index}>
-                    <td>{u.username}</td>
-                    <td>{u.userid}</td>
+                  <tr key={u.id}>
+                    <td>{u.id}</td>
+                    <td>{u.user_name}</td>
+                    <td>{u.user_id}</td>
                     <td>
-                      <button className="btn btn-sm btn-outline-danger">
-                        x
-                      </button>
+                      <RendorOnRole roles={["ADMIN"]}>
+                        <button className="btn btn-sm btn-outline-danger">
+                          x
+                        </button>
+                      </RendorOnRole>
                     </td>
                   </tr>
                 </>

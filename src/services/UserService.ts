@@ -1,3 +1,4 @@
+import { AxiosRequestConfig } from "axios";
 import Keycloak, { KeycloakInstance } from "keycloak-js";
 
 const keycloakConfig = {
@@ -16,7 +17,8 @@ const initKeycloak = (onAuthenticationSuccess: any) => {
     .then((authenticated) => {
       if (!authenticated) {
         console.log("user is not Authenticated!");
-        doLogin();
+        // doLogin();
+        setInterval(updateToken,10000)
       }
       onAuthenticationSuccess();
     })
@@ -31,8 +33,16 @@ const getToken = () => _kc.token;
 
 const isLoggedIn = () => !!_kc.token;
 
-const updateToken = (successCallback: any) => {
-  _kc.updateToken(5).then(successCallback).catch(doLogin);
+const updateToken = () => {
+  _kc
+    .updateToken(5)
+    .then((refreshed) => {
+      if (refreshed) {
+        console.log("token refreshed .........")
+        console.log("refreshed token ---<>", _kc.token);
+      }
+    })
+    .catch(doLogin);
 };
 
 const getUsername = () => _kc.tokenParsed?.preferred_username;
@@ -40,17 +50,15 @@ const getUsername = () => _kc.tokenParsed?.preferred_username;
 const hasRole = (roles: string[]) =>
   roles.some((role: string) => _kc.hasResourceRole(role));
 
-
 const UserService = {
-    initKeycloak,
-    doLogin,
-    dologout,
-    isLoggedIn,
-    getToken,
-    updateToken,
-    getUsername,
-    hasRole
-
+  initKeycloak,
+  doLogin,
+  dologout,
+  isLoggedIn,
+  getToken,
+  updateToken,
+  getUsername,
+  hasRole,
 };
 
 export default UserService;
