@@ -2,7 +2,7 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import { FormProps } from "../@types/UserType";
 
 const Dashboard = ({ onSubmit }: FormProps) => {
-  const [formData, setFormData] = useState({ username: "", userid: "" });
+  const [formData, setFormData] = useState({ user_name: "", user_id: "" });
 
   const handleInputs = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -26,7 +26,7 @@ const Dashboard = ({ onSubmit }: FormProps) => {
             </label>
             <input
               type="text"
-              name="username"
+              name="user_name"
               className="form-control"
               id="exampleFormControlInput1"
               onChange={handleInputs}
@@ -38,7 +38,7 @@ const Dashboard = ({ onSubmit }: FormProps) => {
             </label>
             <input
               className="form-control"
-              name="userid"
+              name="user_id"
               id="exampleFormControlTextarea1"
               onChange={handleInputs}
             />

@@ -1,7 +1,8 @@
 import React, { useContext } from "react";
 import MyContext from "../services/Context";
-import { User, UserApiResponse } from "../services/Types";
+
 import RendorOnRole from "./RendorOnRole";
+import { User } from "../@types/UserType";
 
 const UserList = () => {
   const data = useContext(MyContext);
@@ -11,13 +12,16 @@ const UserList = () => {
   return (
     <>
       <div className="container mt-3 justify-content-center">
-        <table className="table">
+        <table className="table table-hover table-sm">
           <thead>
             <tr>
-              <th scope="col">#</th>
-              <th scope="col">UserName</th>
-              <th scope="col">UserId</th>
-              <th scope="col">Action</th>
+              <th className="text-center">#</th>
+              <th className="text-center" scope="col">UserName</th>
+              <th className="text-center" scope="col">UserId</th>
+              <RendorOnRole roles={["ADMIN"]}>
+              <th className="text-center" scope="col">Action</th>
+              </RendorOnRole>
+              
             </tr>
           </thead>
           <tbody>
@@ -25,12 +29,12 @@ const UserList = () => {
               return (
                 <>
                   <tr key={u.id}>
-                    <td>{u.id}</td>
-                    <td>{u.user_name}</td>
-                    <td>{u.user_id}</td>
+                    <td className="text-center">{u.id}</td>
+                    <td className="text-center">{u.user_name}</td>
+                    <td className="text-center">{u.user_id}</td>
                     <td>
                       <RendorOnRole roles={["ADMIN"]}>
-                        <button className="btn btn-sm btn-outline-danger">
+                        <button className="btn btn-sm btn-outline-danger text-center">
                           x
                         </button>
                       </RendorOnRole>

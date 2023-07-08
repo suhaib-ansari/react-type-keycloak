@@ -10,9 +10,9 @@ export interface User {
 
 export type UserApiResponse = ApiResponse<User>;
 
-export interface FormData {
-    username: string;
-    userid: string;
+export interface UserData {
+    user_name: string;
+    user_id: string;
 }
 
 export type FromDataList = ApiResponse<FormData>;
@@ -22,5 +22,5 @@ export type UserContextType = {
 };
 
 export interface FormProps {
-    onSubmit: (data: FormData) => void;
+    onSubmit: (data: UserData) => void;
 }
