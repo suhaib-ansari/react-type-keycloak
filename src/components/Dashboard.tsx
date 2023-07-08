@@ -18,7 +18,7 @@ const Dashboard = ({ onSubmit }: FormProps) => {
 
   return (
     <>
-      <div className="container mt-5">
+      <div className="container mt-5 mb-5 w-50">
         <form onSubmit={handleOnSubmit}>
           <div className="mb-3">
             <label htmlFor="exampleFormControlInput1" className="form-label">

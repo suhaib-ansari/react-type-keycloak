@@ -12,9 +12,14 @@ const addUser = (data: UserData) => {
   return api.post("/rest/create/user", data );
 };
 
+const deleteUser = (id : number) =>{
+  return api.delete(`/rest/delete/user/${id}`);
+}
+
 const UserApi = {
   getAllUser,
-  addUser
+  addUser,
+  deleteUser
 };
 
 export default UserApi;

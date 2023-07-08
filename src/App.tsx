@@ -10,6 +10,8 @@ import { UserData, User } from "./@types/UserType";
 
 const App = () => {
 
+  const [userdata, setUserdata] = useState<User[] | null>(null);
+
   // submit the user data 
   const submitUser = (data: UserData) => {
     console.log("form data ----> ", data);
@@ -29,7 +31,17 @@ const App = () => {
       setUserdata(resp);
     });
   };
-  const [userdata, setUserdata] = useState<User[] | null>(null);
+
+  //delete the user 
+  const deleteUser = (id: number) => {
+    UserApi.deleteUser(id).then((res) => {
+      if (res) {
+        console.log("User Deleted succesfully!");
+        window.location.reload();
+      }
+    }).catch((err) => console.log(err))
+  }
+
 
   useEffect(() => {
     fetchUsers();
@@ -46,7 +58,7 @@ const App = () => {
       </RenderOnAuthenticated>
       <RendorOnRole roles={["USER", "ADMIN"]}>
         <MyContext.Provider value={userdata}>
-          <UserList />
+          <UserList onDelete={deleteUser} />
         </MyContext.Provider>
       </RendorOnRole>
     </>

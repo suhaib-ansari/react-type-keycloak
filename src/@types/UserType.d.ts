@@ -24,3 +24,7 @@ export type UserContextType = {
 export interface FormProps {
     onSubmit: (data: UserData) => void;
 }
+
+export interface DeleteProps{
+    onDelete: (id : number) => void;
+}

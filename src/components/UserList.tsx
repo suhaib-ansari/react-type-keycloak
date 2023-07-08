@@ -2,26 +2,33 @@ import React, { useContext } from "react";
 import MyContext from "../services/Context";
 
 import RendorOnRole from "./RendorOnRole";
-import { User } from "../@types/UserType";
+import { DeleteProps, User } from "../@types/UserType";
 
-const UserList = () => {
+const UserList = ({ onDelete }: DeleteProps) => {
   const data = useContext(MyContext);
 
   console.log("userlist data --->", data);
 
+  const handleDelete = (id: number) => {
+    onDelete(id);
+  }
+
   return (
     <>
-      <div className="container mt-3 justify-content-center">
-        <table className="table table-hover table-sm">
+      <div className="container mt-3 w-75">
+        <div className="constainer text-center mb-3 mt-3">
+          <h3>User Lists</h3>
+        </div>
+        <table className="table table-hover table-sm h-25">
           <thead>
             <tr>
-              <th className="text-center">#</th>
-              <th className="text-center" scope="col">UserName</th>
-              <th className="text-center" scope="col">UserId</th>
+              <th className="text-center">ID</th>
+              <th className="text-center" scope="col">USERNAME</th>
+              <th className="text-center" scope="col">USERID</th>
               <RendorOnRole roles={["ADMIN"]}>
-              <th className="text-center" scope="col">Action</th>
+                <th className="text-center" scope="col">Action</th>
               </RendorOnRole>
-              
+
             </tr>
           </thead>
           <tbody>
@@ -34,9 +41,11 @@ const UserList = () => {
                     <td className="text-center">{u.user_id}</td>
                     <td>
                       <RendorOnRole roles={["ADMIN"]}>
-                        <button className="btn btn-sm btn-outline-danger text-center">
-                          x
+                        <div className="text-center">
+                        <button className="btn btn-sm btn-outline-danger" onClick={(e) => handleDelete(parseInt(`${u.id}`))}>
+                          Delete
                         </button>
+                        </div>
                       </RendorOnRole>
                     </td>
                   </tr>
