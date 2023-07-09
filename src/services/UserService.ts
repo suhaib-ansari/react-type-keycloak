@@ -1,10 +1,9 @@
-import { AxiosRequestConfig } from "axios";
 import Keycloak, { KeycloakInstance } from "keycloak-js";
 
 const keycloakConfig = {
-  url: "http://localhost:8080/auth/",
-  realm: "react-test",
-  clientId: "react-service",
+  url: import.meta.env.VITE_KEYCLOAK_AUTH_URL,
+  realm: import.meta.env.VITE_KEYCLOAK_REALM,
+  clientId: import.meta.env.VITE_KEYCLOAK_CLIENT_ID,
 };
 
 const _kc: KeycloakInstance = Keycloak(keycloakConfig);
@@ -18,7 +17,7 @@ const initKeycloak = (onAuthenticationSuccess: any) => {
       if (!authenticated) {
         console.log("user is not Authenticated!");
         // doLogin();
-        setInterval(updateToken,10000)
+        setInterval(updateToken, 10000)
       }
       onAuthenticationSuccess();
     })
