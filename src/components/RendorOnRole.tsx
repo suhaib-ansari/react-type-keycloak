@@ -1,12 +1,18 @@
 import { ReactNode } from "react";
 import UserService from "../services/UserService";
+import { RendorOnRoleProps } from "../@types/UserType";
 
-type RendorOnRoleProps = {
-  roles: string[];
-  children: ReactNode;
-};
+const RendorOnRole = ({ roles, children }: RendorOnRoleProps) => {
+  if (UserService.hasRole(roles)) {
+    return (
+      <>
+        {children}
+      </>
+    )
+  } else {
+    return null;
+  }
 
-const RendorOnRole = ({ roles, children }: RendorOnRoleProps) =>
-  UserService.hasRole(roles) ? children : null;
+}
 
 export default RendorOnRole;

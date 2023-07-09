@@ -1,10 +1,18 @@
+import { IProps } from "../@types/UserType";
 import UserService from "../services/UserService";
 
-interface IProps {
-  children: JSX.Element | JSX.Element[];
+const RenderOnAuthenticated = ({ children }: IProps) => {
+  if (UserService.isLoggedIn()) {
+    return (
+      <>
+        {children}
+      </>
+    )
+  } else {
+    return null;
+  }
 }
-
-const RenderOnAuthenticated = ({ children }: IProps) =>
-  UserService.isLoggedIn() ? children : null;
+//if i do directly it will give us build failure bt locally it will work 
+// UserService.isLoggedIn() ? children : null;
 
 export default RenderOnAuthenticated;
