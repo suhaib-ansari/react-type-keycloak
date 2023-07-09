@@ -10,6 +10,16 @@ import { UserData, User } from "./@types/UserType";
 
 const App = () => {
 
+  const submitrole: string = import.meta.env.VITE_ROLES_OF_SUBMIT;
+  const viewrole: string = import.meta.env.VITE_ROLES_OF_VIEW;
+
+  const submitRoles: string[] = submitrole ? JSON.parse(submitrole) : [];
+
+  const viewRoles: string[] = viewrole ? JSON.parse(viewrole) : [];
+
+  console.log("submit role-->", JSON.stringify(submitRoles))
+  console.log("view role-->", JSON.stringify(viewRoles))
+
   const [userdata, setUserdata] = useState<User[] | null>(null);
 
   // submit the user data 
@@ -52,11 +62,11 @@ const App = () => {
     <>
       <Welcome />
       <RenderOnAuthenticated>
-        <RendorOnRole roles={["ADMIN"]}>
+        <RendorOnRole roles={submitRoles} >
           <Dashboard onSubmit={submitUser} />
         </RendorOnRole>
       </RenderOnAuthenticated>
-      <RendorOnRole roles={["USER", "ADMIN"]}>
+      <RendorOnRole roles={viewRoles}>
         <MyContext.Provider value={userdata}>
           <UserList onDelete={deleteUser} />
         </MyContext.Provider>
