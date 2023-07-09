@@ -36,7 +36,7 @@ const UserList = ({ onDelete }: DeleteProps) => {
 
             </tr>
           </thead>
-          <tbody>
+          <tbody style={{ maxHeight: '200px' }}>
             {data?.map((u: User, index: number) => {
               return (
                 <>
