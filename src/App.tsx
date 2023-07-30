@@ -7,6 +7,7 @@ import UserList from "./components/UserList";
 import UserApi from "./services/UserApi";
 import MyContext from "./services/Context";
 import { UserData, User } from "./@types/UserType";
+import CustomContext from "./services/Context";
 
 const App = () => {
 
@@ -21,6 +22,7 @@ const App = () => {
   console.log("view role-->", JSON.stringify(viewRoles))
 
   const [userdata, setUserdata] = useState<User[] | null>(null);
+  const [roles, setRoles] = useState<string[] | null>(null);
 
   // submit the user data 
   const submitUser = (data: UserData) => {
@@ -52,25 +54,36 @@ const App = () => {
     }).catch((err) => console.log(err))
   }
 
+  //get the current user role
+  const getUserRole = () => {
+    UserApi.getRoles().then((res) => {
+      if (res.status === 200) {
+        const re: string[] = res.data;
+        setRoles(re);
+      }
+    }).catch(err => setRoles(null))
+  }
 
   useEffect(() => {
     fetchUsers();
+    getUserRole();
   }, []);
 
 
   return (
     <>
       <Welcome />
-      <RenderOnAuthenticated>
+      <CustomContext.MyRoleContext.Provider value={roles}>
         <RendorOnRole roles={submitRoles} >
           <Dashboard onSubmit={submitUser} />
         </RendorOnRole>
-      </RenderOnAuthenticated>
-      <RendorOnRole roles={viewRoles}>
-        <MyContext.Provider value={userdata}>
-          <UserList onDelete={deleteUser} />
-        </MyContext.Provider>
-      </RendorOnRole>
+        <RendorOnRole roles={viewRoles}>
+          <CustomContext.MyContext.Provider value={userdata}>
+            <UserList onDelete={deleteUser} />
+          </CustomContext.MyContext.Provider>
+        </RendorOnRole>
+      </CustomContext.MyRoleContext.Provider>
+
     </>
   );
 };

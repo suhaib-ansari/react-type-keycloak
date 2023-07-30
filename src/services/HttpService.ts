@@ -9,7 +9,9 @@ const _axios: AxiosInstance = axios.create({
     (config: AxiosRequestConfig) => {
       console.log("config-------------->", config);
         if (config && config.headers) {
-          config.headers.Authorization = `Bearer ${UserService.getToken()}`;
+          // config.headers.Authorization = `Bearer ${UserService.getToken()}`;
+          const naxeed_token =  sessionStorage.getItem("naxeed-token");
+          config.headers.Authorization = `Bearer ${naxeed_token}`;
         }
         return Promise.resolve(config);
     },

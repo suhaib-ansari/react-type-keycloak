@@ -16,10 +16,14 @@ const deleteUser = (id : number) =>{
   return api.delete(`/rest/delete/user/${id}`);
 }
 
+const getRoles = () =>{
+  return api.get("/rest/roles");
+}
 const UserApi = {
   getAllUser,
   addUser,
-  deleteUser
+  deleteUser,
+  getRoles
 };
 
 export default UserApi;

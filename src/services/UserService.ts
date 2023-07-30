@@ -4,6 +4,7 @@ const keycloakConfig = {
   url: import.meta.env.VITE_KEYCLOAK_AUTH_URL,
   realm: import.meta.env.VITE_KEYCLOAK_REALM,
   clientId: import.meta.env.VITE_KEYCLOAK_CLIENT_ID,
+  checkLoginIframe : false
 };
 
 const _kc: KeycloakInstance = Keycloak(keycloakConfig);
@@ -16,9 +17,11 @@ const initKeycloak = (onAuthenticationSuccess: any) => {
     .then((authenticated) => {
       if (!authenticated) {
         console.log("user is not Authenticated!");
-        // doLogin();
         setInterval(updateToken, 10000)
       }
+      const token:any =  _kc.token;
+      console.log(token);
+      sessionStorage.setItem("naxeed-token", token);
       onAuthenticationSuccess();
     })
     .catch(console.error);

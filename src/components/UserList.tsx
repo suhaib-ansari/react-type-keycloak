@@ -3,6 +3,7 @@ import MyContext from "../services/Context";
 
 import RendorOnRole from "./RendorOnRole";
 import { DeleteProps, User } from "../@types/UserType";
+import CustomContext from "../services/Context";
 
 const UserList = ({ onDelete }: DeleteProps) => {
 
@@ -11,7 +12,7 @@ const UserList = ({ onDelete }: DeleteProps) => {
   const deleteRoles: string[] = deleterole ? JSON.parse(deleterole) : [];
 
   //CONTEXT
-  const data = useContext(MyContext);
+  const data = useContext(CustomContext.MyContext);
 
   console.log("userlist data --->", data);
 
